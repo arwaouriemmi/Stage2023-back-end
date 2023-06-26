@@ -10,6 +10,9 @@ namespace CityFix.Models
         public int Id { get; set; }
         public string NomComplet { get; set; }
         public string Password { get; set; }
+
+       
+
         public string Email { get; set; }
         public string Cin { get; set; }
         public string Tel { get; set; }

@@ -2,6 +2,7 @@
 using CityFix.Data;
 using CityFix.Models;
 using CityFix.Models.CityFix.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +21,10 @@ namespace CityFix.Controllers
             _logger = logger;
             _configuration = configuration;
         }
-    
+
+        [Authorize]
         [HttpPost("add")]
+        
         public async Task<Observation> AddAsync ([FromForm] ICollection<IFormFile> images, [FromForm] string observationJson)
 
         {
@@ -49,7 +52,7 @@ namespace CityFix.Controllers
                             Src = fileName,
                             ObservationId = AddedObservation.Id
                         };
-                        ImageRepository.Add(imgObject);
+                       ImageRepository.Add(imgObject);
                         
 
 
@@ -72,7 +75,9 @@ namespace CityFix.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("ObservationsByCitoyenId/{CitoyenId}")]
+        
         public List<Observation> ObservationsByCitoyenId(int CitoyenId)
 
         {
@@ -85,7 +90,10 @@ namespace CityFix.Controllers
 
 
         }
+
+        [Authorize]
         [HttpPatch("update/{id}")]
+       
         public Observation Update(int id, [FromBody] Observation observation)
 
         {
@@ -96,7 +104,10 @@ namespace CityFix.Controllers
             return NewObservation;
 
         }
+
+        [Authorize]
         [HttpDelete("delete/{id}")]
+        
         public Observation Delete(int id)
 
         {

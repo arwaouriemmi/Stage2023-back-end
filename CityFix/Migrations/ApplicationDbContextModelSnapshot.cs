@@ -34,7 +34,6 @@ namespace CityFix.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("NomComplet")
@@ -81,7 +80,7 @@ namespace CityFix.Migrations
                     b.ToTable("Observations");
                 });
 
-            modelBuilder.Entity("CityFix.Models.Image", b =>
+            modelBuilder.Entity("CityFix.Models.Img", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,24 +102,20 @@ namespace CityFix.Migrations
 
             modelBuilder.Entity("CityFix.Models.CityFix.Models.Observation", b =>
                 {
-                    b.HasOne("CityFix.Models.Citoyen", "Citoyen")
+                    b.HasOne("CityFix.Models.Citoyen", null)
                         .WithMany("Observations")
                         .HasForeignKey("CitoyenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Citoyen");
                 });
 
-            modelBuilder.Entity("CityFix.Models.Image", b =>
+            modelBuilder.Entity("CityFix.Models.Img", b =>
                 {
-                    b.HasOne("CityFix.Models.CityFix.Models.Observation", "Observation")
+                    b.HasOne("CityFix.Models.CityFix.Models.Observation", null)
                         .WithMany("Images")
                         .HasForeignKey("ObservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Observation");
                 });
 
             modelBuilder.Entity("CityFix.Models.Citoyen", b =>

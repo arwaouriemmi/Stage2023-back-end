@@ -1,6 +1,7 @@
 ﻿using CityFix.Data;
 using CityFix.Models;
 using CityFix.Models.CityFix.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ namespace CityFix.Controllers
             _logger = logger;
             _configuration = configuration;
         }
+
+        [Authorize]
         [HttpPost("add")]
         public Img Add([FromBody] Img img)
 
@@ -31,6 +34,7 @@ namespace CityFix.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("ImagesByObservationId/{ObservationId}")]
         public List<Img> ImagesByObservationId(int ObservationId)
 
@@ -44,6 +48,8 @@ namespace CityFix.Controllers
 
 
         }
+
+        [Authorize]
         [HttpPatch("update/{id}")]
         public Img Update(int id, [FromBody] Img img)
 
@@ -55,6 +61,8 @@ namespace CityFix.Controllers
             return NewImage;
 
         }
+
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public Img Delete(int id)
 

@@ -9,7 +9,9 @@
       "CityFix/1.0.0": {
         "dependencies": {
           "AWSSDK.Core": "3.7.107.9",
+          "BCrypt.Net-Next": "4.0.3",
           "EntityFramework": "6.4.4",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.19",
           "Microsoft.EntityFrameworkCore": "7.0.7",
           "Microsoft.EntityFrameworkCore.Design": "7.0.7",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.7",
@@ -19,7 +21,8 @@
           "MySql.EntityFrameworkCore": "7.0.2",
           "MySqlConnector": "2.2.6",
           "Newtonsoft.Json": "13.0.3",
-          "Pomelo.EntityFrameworkCore.MySql": "7.0.0"
+          "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
+          "Selenium.WebDriver": "4.10.0"
         },
         "runtime": {
           "CityFix.dll": {}
@@ -64,6 +67,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
+          }
+        }
+      },
+      "BCrypt.Net-Next/4.0.3": {
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.0.3.0"
           }
         }
       },
@@ -128,6 +139,17 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "assemblyVersion": "1.0.8.0",
             "fileVersion": "1.0.8.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.19": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.21.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "6.0.19.0",
+            "fileVersion": "6.0.1923.31806"
           }
         }
       },
@@ -652,6 +674,17 @@
           }
         }
       },
+      "Selenium.WebDriver/4.10.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/net6.0/WebDriver.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {},
       "System.CodeDom/4.7.0": {
         "runtime": {
@@ -975,6 +1008,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "BCrypt.Net-Next/4.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "path": "bcrypt.net-next/4.0.3",
+      "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
+    },
     "EntityFramework/6.4.4": {
       "type": "package",
       "serviceable": true,
@@ -1016,6 +1056,13 @@
       "sha512": "sha512-Wp2F7BamQ2Q/7Hk834nV9vRQapgcr8kgv9Jvfm8J3D0IhDqZMMl+a2yxUq5ltJitvXvQfB8W6K4F4fCbw/P6YQ==",
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gdSF/N7ETakCeVONpiqHivv1aUY8DYXn/9CAi9UJuauSeRK0l0AM7kG5gB+e2zkl4o9zxrS6oVfkWT4lYLxCZw==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.19",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.19.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",
@@ -1331,6 +1378,13 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver/4.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MvgUaxeLqLOtRnNS+kHzqfOhLO+7ZEukhQMuS7ksQQPA2tGNXWhrRN3PTkTGuKhuodd9JkoZ4eCKVEQF6xPdmA==",
+      "path": "selenium.webdriver/4.10.0",
+      "hashPath": "selenium.webdriver.4.10.0.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
