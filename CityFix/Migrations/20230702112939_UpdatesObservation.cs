@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace CityFix.Migrations
 {
     /// <inheritdoc />
-    public partial class Auth : Migration
+    public partial class UpdatesObservation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,6 @@ namespace CityFix.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     NomComplet = table.Column<string>(type: "longtext", nullable: false),
                     Password = table.Column<string>(type: "longtext", nullable: false),
-                    Salt = table.Column<string>(type: "longtext", nullable: true),
                     Email = table.Column<string>(type: "longtext", nullable: false),
                     Cin = table.Column<string>(type: "longtext", nullable: false),
                     Tel = table.Column<string>(type: "longtext", nullable: false),
@@ -42,7 +41,8 @@ namespace CityFix.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Localisation = table.Column<string>(type: "longtext", nullable: false),
+                    Latitude = table.Column<string>(type: "longtext", nullable: false),
+                    Longitude = table.Column<string>(type: "longtext", nullable: false),
                     Text = table.Column<string>(type: "longtext", nullable: false),
                     CitoyenId = table.Column<int>(type: "int", nullable: false)
                 },

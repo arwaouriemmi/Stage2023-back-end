@@ -65,7 +65,11 @@ namespace CityFix.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Localisation")
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Longitude")
                         .IsRequired()
                         .HasColumnType("longtext");
 

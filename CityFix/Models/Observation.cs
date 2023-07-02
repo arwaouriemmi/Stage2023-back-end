@@ -12,7 +12,8 @@ namespace CityFix.Models
             public int Id { get; set; }
           
             public DateTime Date { get; set; }
-            public string Localisation { get; set; }
+            public string Latitude { get; set; }
+            public string Longitude { get; set; }
 
             public string Text{ get; set; }
 

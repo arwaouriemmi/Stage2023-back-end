@@ -61,7 +61,7 @@ namespace CityFix.Controllers
 
                 }
              
-                return observation;
+                return AddedObservation;
 
 
             }

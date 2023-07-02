@@ -50,9 +50,9 @@ namespace CityFix.Data
             {
                 throw new Exception("Observation not found");
             }
-            existingObservation.Date = updatedObservation.Date;
-            existingObservation.Localisation = updatedObservation.Localisation;
-            existingObservation.Text = updatedObservation.Text;
+            existingObservation.Longitude = updatedObservation.Longitude ?? existingObservation.Longitude;
+            existingObservation.Latitude = updatedObservation.Latitude ?? existingObservation.Latitude ;
+            existingObservation.Text = updatedObservation.Text ?? existingObservation.Text ;
             existingObservation.Images = updatedObservation.Images ?? existingObservation.Images;
             if (updatedObservation.CitoyenId != 0)
             {

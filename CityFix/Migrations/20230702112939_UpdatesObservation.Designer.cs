@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CityFix.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230625121455_Auth")]
-    partial class Auth
+    [Migration("20230702112939_UpdatesObservation")]
+    partial class UpdatesObservation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,9 +47,6 @@ namespace CityFix.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Salt")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Tel")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -71,7 +68,11 @@ namespace CityFix.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Localisation")
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Longitude")
                         .IsRequired()
                         .HasColumnType("longtext");
 
