@@ -12,6 +12,16 @@ builder.Services.AddTransient<MySqlConnection>(_ =>
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL("Server=localhost;User =root;Password=root;Database=CityFix"));
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(x =>
 {
@@ -50,7 +60,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors();
 
 
 

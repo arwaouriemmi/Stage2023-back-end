@@ -43,8 +43,9 @@ namespace CityFix.Controllers
 
                     var fileName = Generics.GenerateUniqueFileName(img.FileName);
 
+                    var filePath = Path.Combine("C:/Users/arwa/OneDrive/Bureau/stage2023/vue-project/public", fileName);
 
-                    var filePath = Path.Combine("../CityFix/Images", fileName);
+                    //var filePath = Path.Combine("../CityFix/Images", fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await img.CopyToAsync(stream);

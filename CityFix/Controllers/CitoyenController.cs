@@ -43,6 +43,24 @@ namespace CityFix.Controllers
             return citoyen;
 
         }
+        [Authorize]
+        [HttpGet("GetByToken")]
+        public Citoyen GetByToken()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var idClaim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (idClaim != null && int.TryParse(idClaim.Value, out int id))
+            {
+                ApplicationDbContext ApplicationDbContext = ApplicationDbContext.Instance();
+                CitoyenRepository CitoyenRepository = new CitoyenRepository(ApplicationDbContext);
+                Citoyen citoyen = CitoyenRepository.Find(id);
+                return citoyen;
+            }
+
+           
+            return null;
+        }
+
 
         [Authorize]
         [HttpGet("GetAll")]
@@ -59,16 +77,44 @@ namespace CityFix.Controllers
 
 
         [Authorize]
-        [HttpPatch("update/{id}")]
+        [HttpPatch("update")]
         
-        public Citoyen Update(int id,[FromBody] Citoyen citoyen)
+        public async Task<Citoyen> UpdateAsync([FromForm] IFormFile img, [FromForm] string citoyenJson)
 
         {
-            ApplicationDbContext ApplicationDbContext = ApplicationDbContext.Instance();
-            CitoyenRepository CitoyenRepository = new CitoyenRepository(ApplicationDbContext);
-            Citoyen NewCitoyen=CitoyenRepository.Update(id, citoyen);
+            Citoyen citoyen = JsonConvert.DeserializeObject<Citoyen>(citoyenJson);
+
+
+            if (img != null)
+            {
+
+                var fileName = Generics.GenerateUniqueFileName(img.FileName);
+
+
+                var filePath = Path.Combine("C:/Users/arwa/OneDrive/Bureau/stage2023/vue-project/public", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await img.CopyToAsync(stream);
+                }
+
+
+                citoyen.Image = fileName;
+            }
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var idClaim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (idClaim != null && int.TryParse(idClaim.Value, out int id))
+            {
+                ApplicationDbContext ApplicationDbContext = ApplicationDbContext.Instance();
+                CitoyenRepository CitoyenRepository = new CitoyenRepository(ApplicationDbContext);
+                Citoyen NewCitoyen=CitoyenRepository.Update(id, citoyen);
 
             return NewCitoyen;
+                }
+            else
+            {
+
+                throw new NotFoundException("erreur!!");
+            }
 
         }
        

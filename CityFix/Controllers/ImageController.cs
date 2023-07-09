@@ -34,7 +34,7 @@ namespace CityFix.Controllers
 
         }
 
-        [Authorize]
+       
         [HttpGet("ImagesByObservationId/{ObservationId}")]
         public List<Img> ImagesByObservationId(int ObservationId)
 

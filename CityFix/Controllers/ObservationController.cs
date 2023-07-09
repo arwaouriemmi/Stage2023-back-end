@@ -2,11 +2,13 @@
 using CityFix.Data;
 using CityFix.Models;
 using CityFix.Models.CityFix.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CityFix.Controllers
 {
@@ -28,50 +30,62 @@ namespace CityFix.Controllers
         public async Task<Observation> AddAsync ([FromForm] ICollection<IFormFile> images, [FromForm] string observationJson)
 
         {
-            ApplicationDbContext ApplicationDbContext = ApplicationDbContext.Instance();
-            ObservationRepository ObservationRepository = new ObservationRepository(ApplicationDbContext);
-            ImageRepository ImageRepository= new ImageRepository(ApplicationDbContext);
-            try
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var idClaim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (idClaim != null && int.TryParse(idClaim.Value, out int id))
             {
-                Observation observation = JsonConvert.DeserializeObject<Observation>(observationJson);
-                Observation AddedObservation=ObservationRepository.Add(observation);
-                if (images != null && images.Count > 0)
+                ApplicationDbContext ApplicationDbContext = ApplicationDbContext.Instance();
+                ObservationRepository ObservationRepository = new ObservationRepository(ApplicationDbContext);
+                ImageRepository ImageRepository = new ImageRepository(ApplicationDbContext);
+                try
                 {
-                    foreach (var img in images)
+                    Observation observation = JsonConvert.DeserializeObject<Observation>(observationJson);
+                    observation.CitoyenId = id;
+                    Observation AddedObservation = ObservationRepository.Add(observation);
+                    if (images != null && images.Count > 0)
                     {
-                        var fileName = Generics.GenerateUniqueFileName(img.FileName);
-
-
-                        var filePath = Path.Combine("../CityFix/Images", fileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        foreach (var img in images)
                         {
-                            await img.CopyToAsync(stream);
+                            var fileName = Generics.GenerateUniqueFileName(img.FileName);
+
+
+
+                            var filePath = Path.Combine("C:/Users/arwa/OneDrive/Bureau/stage2023/vue-project/public", fileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                await img.CopyToAsync(stream);
+                            }
+                            var imgObject = new Img
+                            {
+                                Src = fileName,
+                                ObservationId = AddedObservation.Id
+                            };
+                            ImageRepository.Add(imgObject);
+
+
+
                         }
-                        var imgObject = new Img
-                        {
-                            Src = fileName,
-                            ObservationId = AddedObservation.Id
-                        };
-                       ImageRepository.Add(imgObject);
-                        
 
 
                     }
-                   
+
+                    return AddedObservation;
+
 
                 }
-             
-                return AddedObservation;
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+
+
+                    return null;
+                }
 
 
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+            return null;
 
-
-                return null;
-            }
+           
 
         }
 
@@ -90,7 +104,32 @@ namespace CityFix.Controllers
 
 
         }
+        [Authorize]
+        [HttpGet("ObservationsByCitoyenToken")]
 
+        public List<Observation> ObservationsByCitoyenToken()
+
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var idClaim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (idClaim != null && int.TryParse(idClaim.Value, out int id))
+            {
+                ApplicationDbContext ApplicationDbContext = ApplicationDbContext.Instance();
+                ObservationRepository ObservationRepository = new ObservationRepository(ApplicationDbContext);
+                List<Observation> observations = ObservationRepository.ObservationsByCitoyenId(id);
+
+                return observations;
+
+
+            }
+            return null ;
+            
+       
+
+           
+
+
+        }
         [Authorize]
         [HttpPatch("update/{id}")]
        
